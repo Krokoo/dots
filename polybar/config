@@ -20,7 +20,7 @@
 background = #aa161821
 foreground = #81a1c1
 
-[bar/top]
+[bar/main]
 override-redirect = true
 width =  99%
 height = 40
