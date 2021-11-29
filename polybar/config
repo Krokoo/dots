@@ -1,0 +1,108 @@
+;==========================================================
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/polybar/polybar
+;
+;   The README contains a lot of information
+;
+;==========================================================
+
+[colors]
+background = #aa161821
+foreground = #81a1c1
+
+[bar/top]
+override-redirect = true
+width =  99%
+height = 40
+background = ${colors.background}
+foreground = ${colors.foreground}
+offset-x = 0.4%
+offset-y = 0.8%
+fixed-center = true
+line-size = 3
+wm-restack = i3
+
+modules-left = powermenu i3 
+modules-center = date
+modules-right = cpu mem   
+
+font-0 = Bitstream Vera Sans Mono Nerd Font:style=Bold:pixelsize=13;3
+
+[module/i3]
+type = internal/i3
+
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+fuzzy-match = true
+
+format = <label-state>
+
+ws-icon-0 = 1;%{F#e27878} 
+ws-icon-1 = 2;%{F#89b8c2}戮 
+ws-icon-2 = 3;%{F#84a0c6}ﭮ  
+ws-icon-3 = 4;%{F#88c0d0}  
+ws-icon-4 = 5;%{F#b4be82}
+
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-background = #e60053
+
+label-unfocused = %icon%
+label-unfocused-padding = 1
+
+label-visible = %icon%
+label-visible-padding = 1
+
+label-focused = %icon%  
+label-focused-underline =  #81a1c1
+label-focused-padding = 1
+
+[module/date]
+type = internal/date
+interval = 60
+format = <label>
+format-background = ${colors.background}
+date = %{F#89b8c2}󰥔 %I:%M %p%{F-}
+time-alt = %{F#89b8c2}󰃭 %a, %b %d%{F-}
+
+label = %date%%time%
+
+[module/mem]
+type = custom/script
+exec = free -m | sed -n 's/^Mem:\s\+[0-9]\+\s\+\([0-9]\+\)\s.\+/\1/p'
+format = <label>
+format-prefix = " ﬙ " 
+label = %output% MB
+label-padding = 1
+format-foreground = #d19a66
+;format-background = #95c4ce
+
+[module/powermenu]
+type = custom/text 
+content =" " 
+content-padding =1
+click-left = dmenu_run &
+content-foreground = #61AFEF 
+
+[module/cpu]
+type = internal/cpu
+interval = 2.5
+
+format-prefix = "  " 
+format = <label> 
+
+label = CPU %percentage%%
+
+format-foreground = #a093c7
+
